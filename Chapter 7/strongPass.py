@@ -1,16 +1,19 @@
 import re
+import pyperclip
 
-rgx = re.compile(r'''(
-	([a-zA-Z0-9]){0,7} # Any character preceding required character
-	(\d)			# Required digit somewhere in regex
-	([a-zA-Z0-9])+ # Remainder of password
-	)''', re.VERBOSE)
-	
+# Regexes for each requirement:
+hasLower = re.compile(r'[a-z]')
+hasUpper = re.compile(r'[A-Z]')
+hasNumber = re.compile(r'[0-9]')
 
 def isStrong(pwd):
 	assert type(pwd) == str
-	x = rgx.search(pwd)
-	if len(pwd) == len(x.group(0)):
-		return True
+	lower = hasLower.search(pwd)
+	upper = hasUpper.search(pwd)
+	number = hasNumber.search(pwd)
+	if lower != 1 or upper == 0 or number != 0:
+		print('Password is not strong enough. Make sure to include all required characters')
+	if len(pwd) < 8:
+		print('Password is not strong enough. Please enter at least 8 characters')
 	else:
-		return False
+		print('Password is strong')
