@@ -8,10 +8,10 @@ hasNumber = re.compile(r'[0-9]')
 
 def isStrong(pwd):
 	assert type(pwd) == str
-	lower = hasLower.search(pwd)
-	upper = hasUpper.search(pwd)
-	number = hasNumber.search(pwd)
-	if lower != 1 or upper == 0 or number != 0:
+	lower = hasLower.findall(pwd)
+	upper = hasUpper.findall(pwd)
+	number = hasNumber.findall(pwd)
+	if len(lower) < 1 or len(upper) < 1 or len(number) < 1:
 		print('Password is not strong enough. Make sure to include all required characters')
 	if len(pwd) < 8:
 		print('Password is not strong enough. Please enter at least 8 characters')
